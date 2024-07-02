@@ -31,7 +31,7 @@
         gosterTablo(JSON.parse(veri));
       } else {
        
-        $.getJSON("adsız.json", function(data) {
+        $.getJSON("https://raw.githubusercontent.com/tugbaayildiz/javascript/main/ads%C4%B1z.json", function(data) {
       
           localStorage.setItem("jsonVeriler", JSON.stringify(data));
           gosterTablo(data);
