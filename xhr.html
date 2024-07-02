@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>JSON Verileri Tablosu</title>
+  <style>
+    table {
+      border-collapse: collapse;
+      width: 100%;
+    }
+    th, td {
+      border: 1px solid #ddd;
+      padding: 8px;
+      text-align: left;
+    }
+    th {
+      background-color: #f2f2f2;
+    }
+  </style>
+</head>
+<body>
+  <h1>JSON Verileri Tablosu</h1>
+  <table id="veriTablosu"></table>
+
+  <script>
+    document.addEventListener("DOMContentLoaded", function() {
+      var xhr = new XMLHttpRequest();
+      xhr.open("GET", "adsız.json", true);
+      xhr.onload = function() {
+        if (xhr.status == 200) {
+          var data = JSON.parse(xhr.responseText);
+          var tablo = document.getElementById("veriTablosu");
+
+          var baslikSatiri = "<tr><th>Sıra No</th><th>Adı Soyadı</th><th>Kitap Sayısı</th><th>Sayfa Sayısı</th></tr>";
+          tablo.innerHTML = baslikSatiri;
+
+          for (var grupAdi in data.Gruplar) {
+            var grupVerileri = data.Gruplar[grupAdi];
+            var grupBaslikSatiri = "<tr><td colspan='4'><strong>" + grupAdi + "</strong></td></tr>";
+            tablo.innerHTML += grupBaslikSatiri;
+
+            for (var i = 0; i < grupVerileri.length; i++) {
+              var ogrenci = grupVerileri[i];
+              var satir = "<tr><td>" + ogrenci.sıraNo + "</td><td>" + ogrenci.adıSoyadı + "</td><td>" + ogrenci.kitapSayısı + "</td><td>" + ogrenci.sayfaSayısı + "</td></tr>";
+              tablo.innerHTML += satir;
+            }
+          }
+        }
+      };
+      xhr.send();
+    });
+  </script>
+</body>
+</html>

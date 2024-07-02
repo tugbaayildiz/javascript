@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>JSON Verileri Tablosu</title>
+  <style>
+    table {
+      border-collapse: collapse;
+      width: 100%;
+    }
+    th, td {
+      border: 1px solid #ddd;
+      padding: 8px;
+      text-align: left;
+    }
+    th {
+      background-color: #f2f2f2;
+    }
+  </style>
+  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+</head>
+<body>
+  <h1>JSON Verileri Tablosu</h1>
+  <table id="veriTablosu"></table>
+
+  <script>
+    $(document).ready(function() {
+    
+      $.getJSON("adsız.json", function(data) {
+        
+        var tablo = $("#veriTablosu");
+        var baslikSatiri = "<tr><th>Sıra No</th><th>Adı Soyadı</th><th>Kitap Sayısı</th><th>Sayfa Sayısı</th></tr>";
+        tablo.append(baslikSatiri);
+
+        for (var grupAdi in data.Gruplar) {
+          var grupVerileri = data.Gruplar[grupAdi];
+          var grupBaslikSatiri = "<tr><td colspan='4'><strong>" + grupAdi + "</strong></td></tr>";
+          tablo.append(grupBaslikSatiri);
+
+          for (var i = 0; i < grupVerileri.length; i++) {
+            var ogrenci = grupVerileri[i];
+            var satir = "<tr><td>" + ogrenci.sıraNo + "</td><td>" + ogrenci.adıSoyadı + "</td><td>" + ogrenci.kitapSayısı + "</td><td>" + ogrenci.sayfaSayısı + "</td></tr>";
+            tablo.append(satir);
+          }
+        }
+      });
+    });
+  </script>
+</body>
+</html>
